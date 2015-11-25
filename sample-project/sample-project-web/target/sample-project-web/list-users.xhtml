@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/template.xhtml" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="pageContent">
+		<h:form>
+			<p:dataTable border="1" value="#{userBean.users}" var="u">
+				<p:column id="column1">
+					<f:facet name="header">
+						<h:outputText value="id"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{u.id}" />
+				</p:column>
+				<p:column id="column2">
+					<f:facet name="header">
+						<h:outputText value="name"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{u.name}" />
+				</p:column>
+
+				<p:column id="column4">
+					<f:facet name="header">
+						<h:outputText value="#"></h:outputText>
+					</f:facet>
+					<h:commandButton action="#{userBean.dislay()}" value="select">
+						<f:setPropertyActionListener value="#{u}"
+							target="#{userBean.userSelected}"></f:setPropertyActionListener>
+					</h:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<h:panelGrid columns="2" rendered="#{userBean.displayForm}">
+				<h:outputText value="name" />
+				<h:inputText value="#{userBean.userSelected.name}" />
+				<h:commandButton action="#{userBean.doUpdateUser()}" value="update" />
+				<h:commandButton action="#{userBean.doDeleteUser()}" value="delete" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
